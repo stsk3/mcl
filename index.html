@@ -50,12 +50,17 @@
 			background-color: black;
 			margin: 0px;
 			overflow: hidden;
+			-webkit-user-select: none;
+			-moz-user-select: -moz-none;
+			-ms-user-select: none;
+			user-select: none;
 		}
 	</style>
 
 
 	<script type="text/javascript">
 		function onLoad() {
+			launchFullScreen(document.documentElement);
 			startPoint();
 			startDate();
 			startTime();
@@ -71,6 +76,17 @@
 				;
 			rfs.call(el);
 		});
+
+		// Find the right method, call on correct element
+		function launchFullScreen(element) {
+			if (element.requestFullScreen) {
+				element.requestFullScreen();
+			} else if (element.mozRequestFullScreen) {
+				element.mozRequestFullScreen();
+			} else if (element.webkitRequestFullScreen) {
+				element.webkitRequestFullScreen();
+			}
+		}
 
 		function startPoint() {
 			var myParam = location.search.split('point=')[1] ? location.search.split('point=')[1] : '1848';
